@@ -41,6 +41,7 @@
 
 <script>
   import { getAllFolders, getAllNotes, getNoteContent, writeContent } from '@/components/blog.js'
+  import { remote } from 'electron'
   const Store = require('electron-store')
   const store = new Store()
   const exec = require('child_process').exec
@@ -135,23 +136,40 @@
         }
         var that = this
         this.buttonStatus = true
-        let cmdStr = 'hexo clean && hexo g && hexo d'
+        that.$message({
+          message: '正在执行更新程序',
+          type: 'warning'
+        })
+        let cmdStr = 'cd.. && cd .. && npm install && hexo clean && hexo g && hexo d'
         let workerProcess = exec(cmdStr, {cwd: path})
+        let ErrorRes = ''
+        let lastErrorRes = ''
+        let OutRes = ''
+        let lastOutRes = ''
 
         workerProcess.stderr.on('data', function (data) {
-          that.buttonStatus = false
-          that.$message({
-            message: data,
-            type: 'error'
-          })
+          ErrorRes += data
+          lastErrorRes = data
         })
   
-        workerProcess.on('data', function (data) {
+        workerProcess.stdout.on('data', function (data) {
+          OutRes += data
+          lastOutRes = data
+        })
+  
+        workerProcess.on('close', function (code) {
           that.buttonStatus = false
-          that.$message({
-            message: '更新成功',
-            type: 'success'
+          let alertData = ''
+          alertData += '<strong> Last Error(Warning):</strong> <br>' + lastErrorRes + '<br>'
+          alertData += '<strong> Last Stdout:</strong> <br>' + lastOutRes + '<br>'
+          alertData += '<i>if you want know more, you can find more information in log</i> <br>'
+          alertData += '<strong>the log path:</strong> <br>' + remote.app.getPath('userData') + '\\StdError.log(StdOut.log)'
+          that.$alert(alertData, '执行输出', {
+            dangerouslyUseHTMLString: true,
+            confirmButtonText: '确定'
           })
+          writeContent(ErrorRes, remote.app.getPath('userData') + '\\StdError.log')
+          writeContent(OutRes, remote.app.getPath('userData') + '\\StdOut.log')
         })
       }
     }
