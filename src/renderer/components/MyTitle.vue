@@ -22,7 +22,7 @@
   export default {
     data () {
       return {
-        name: 'BlogGo-1.0.0'
+        name: 'BlogGo-1.0.2'
       }
     },
     methods: {

@@ -16,9 +16,9 @@ export default new Router({
           component: require('@/components/MyBlog').default
         },
         {
-          path: '/github-set',
-          name: 'github-set',
-          component: require('@/components/GitHubSet').default
+          path: '/local-set',
+          name: 'local-set',
+          component: require('@/components/LocalDataSet').default
         },
         {
           path: '/cookie-set',

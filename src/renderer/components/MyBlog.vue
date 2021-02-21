@@ -59,7 +59,7 @@
     },
     methods: {
       async getBlog () {
-        let path = store.get('githubform').allPath
+        let localPath = store.get('localDataform').localPath
         let cookie = store.get('Cookieform')
         if (!cookie) {
           this.$message({
@@ -68,7 +68,7 @@
           })
           return false
         }
-        if (!path) {
+        if (!localPath) {
           this.$message({
             message: 'Path不存在',
             type: 'error'
@@ -106,7 +106,7 @@
         for (let i = 0; i < Notes.length; ++i) {
           this.BlogTitle = 'MyBlog(' + i + '/' + this.tableData.length + ')'
           let content = await getNoteContent(Notes[i], cookie)
-          writeRes = await writeContent(content, path + '\\' + Notes[i].name)
+          writeRes = await writeContent(content, localPath + '\\' + Notes[i].name)
           if (writeRes !== true) {
             this.$message({
               message: 'No such File Or Directory',
@@ -126,8 +126,9 @@
       },
       async uploadToHexo () {
         console.log('begin uploadToHexo')
-        let path = store.get('githubform').allPath
-        if (!path) {
+        let cmdPath = store.get('localDataform').cmdPath
+        // let path = store.get('githubform').allPath
+        if (!cmdPath) {
           this.$message({
             message: 'Path不存在',
             type: 'error'
@@ -138,10 +139,14 @@
         this.buttonStatus = true
         that.$message({
           message: '正在执行更新程序',
-          type: 'warning'
+          type: 'warning',
+          duration: 10000
         })
-        let cmdStr = 'cd.. && cd .. && npm install && hexo clean && hexo g && hexo d'
-        let workerProcess = exec(cmdStr, {cwd: path})
+        // let cmdStr = 'cd.. && cd .. && npm install && hexo clean && hexo g && hexo d'
+        let cmdStr = store.get('localDataform').cmd.replace(/\n/g, '&& ')
+        console.log(cmdStr)
+
+        let workerProcess = exec(cmdStr, {cwd: cmdPath})
         let ErrorRes = ''
         let lastErrorRes = ''
         let OutRes = ''
@@ -166,7 +171,8 @@
           alertData += '<strong>the log path:</strong> <br>' + remote.app.getPath('userData') + '\\StdError.log(StdOut.log)'
           that.$alert(alertData, '执行输出', {
             dangerouslyUseHTMLString: true,
-            confirmButtonText: '确定'
+            confirmButtonText: '确定',
+            customClass: 'msgbox'
           })
           writeContent(ErrorRes, remote.app.getPath('userData') + '\\StdError.log')
           writeContent(OutRes, remote.app.getPath('userData') + '\\StdOut.log')
@@ -199,4 +205,14 @@
   margin-top: 2%;
   text-align: center;
 }
+
+.msgbox {
+  width: 60%;
+}
+@media screen and (min-width: 400px) {
+  .msgbox {
+    width: 200px;
+  }
+}
+
 </style>

@@ -8,9 +8,9 @@
           <i class="el-icon-document"></i>
           <span slot="title">Blog</span>
       </el-menu-item>
-      <el-menu-item index="2" @click="redirect('github-set')">
+      <el-menu-item index="2" @click="redirect('local-set')">
           <i class="el-icon-setting"></i>
-          <span slot="title">github设置  </span>
+          <span slot="title">本地仓库设置  </span>
       </el-menu-item>
       <el-menu-item index="3" @click="redirect('cookie-set')">
           <i class="el-icon-setting"></i>
