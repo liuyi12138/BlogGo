@@ -1,5 +1,6 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/liuyi12138/BlogGo/master/build/icons/BlogGo.png" height="150" width="150">
+  <img src="https://gitee.com/know_the_emperor/picture/raw/master/pictures/20210221130908.png" height="150" width="150">
+
   <h1>BlogGo</h1>
   <blockquote>有道云笔记同步工具 </blockquote>
 </div>
@@ -16,7 +17,7 @@
 **BlogGo：一个用于同步有道云笔记到自己博客的工具**
 
 ## 应用界面
-![BlogGo](https://raw.githubusercontent.com/liuyi12138/picture/master/20200311195809.png)
+![BlogGo](https://gitee.com/know_the_emperor/picture/raw/master/pictures/20210221130958.png)
 
 ## 下载与安装
 点击此处下载[应用](https://github.com/liuyi12138/BlogGo/releases)
@@ -31,22 +32,15 @@
 * 安装好应用后需要进行github设置以及cookie设置
 * cookie设置较为简单，用户需要登录Web版的有道云笔记获取到几个cookie(Chrome用户可以使用EditThisCookie插件，其他用户自行百度)
 * 需要填写的cookie有：
-    * YNOTE_PERS
+    * YNOTE_PERS(已弃用)
     * YNOTE_SESS
     * YNOTE_LOGIN
     * CSTK
 * 另外，由于cookie的时效性，每隔一段时间需要重新获取一次cookie
-* github设置主要包括用户名、仓库名、分支、相对保存地址
-* 相对保存地址为你的`_posts`文件夹与你的项目的相对位置，以我的博客地址为例
-```
-我的博客地址为：https://github.com/liuyi12138/liuyi12138.github.io
-我的_posts文件夹的地址为liuyi12138.github.io/blog/source/_posts/
-则相对保存地址为'\blog\source\_posts'
-绝对保存地址为C:\Users\User\AppData\Roaming\BlogGo\liuyi12138.github.io\blog\source\_posts
-```
-* github信息与cookie设置好后点击`clone仓库到本地`按钮，耐心等待，你的github仓库将会被存放在`C:\Users\User\AppData\Roaming\BlogGo\`，clone仓库结束之后会自动跳转到你所指定的分支，并且会生成绝对保存地址
-* 以上设置全部完成之后可到Blog页面点击获取Blog，BlogGo会调用接口将你的有道云笔记中的markdown文件全部下载到你的绝对保存地址
-* 下载完成后点击更新Hexo即可上传，第一次下载完成后可能需要自行在下载的仓库配置Hexo环境（V1.01之后会自动npm install，一般情况下问题不大）
+* 在本地仓库设置中设置好博客存储地址和指令执行地址以及博客上传指令
+
+* 以上设置全部完成之后可到Blog页面点击获取Blog，BlogGo会调用接口将你的有道云笔记中的markdown文件全部下载到你的博客存储地址
+* 下载完成后点击更新Hexo即可上传，会执行你设置的博客上传指令
 
 ## 已知Bug
 **以下为V1.0.0中的已知bug和暂时的解决方案，希望使用者注意，在接下来的几个版本中我会逐步修复这些bug**
@@ -79,8 +73,8 @@
 **先行修复了一些bug，目前在我的机器上还是比较好用的，如果用的人超过5人的话我就把剩下的几个需求给做了**
 **有使用的同志我们issue见**
 * [√] 增加log输出
-* [×] 自定义保存地址
-* [×] 自定义博客更新代码(可能可以适用于其他类型的博客)
+* [√] 自定义保存地址
+* [√] 自定义博客更新代码(可能可以适用于其他类型的博客)
 
 ## 鸣谢
 **在此鸣谢几位为我的开发工作提供帮助的朋友**
